@@ -65,8 +65,9 @@ jobs:
 
       - name: Set lowercase repository names
         run: |
-          echo "IMAGE_BACKEND=${{ env.REGISTRY }}/${{ github.repository_owner }}/labtrack-backend" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
-          echo "IMAGE_FRONTEND=${{ env.REGISTRY }}/${{ github.repository_owner }}/labtrack-frontend" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
+          OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE_BACKEND=ghcr.io/${OWNER_LC}/labtrack-backend" >> $GITHUB_ENV
+          echo "IMAGE_FRONTEND=ghcr.io/${OWNER_LC}/labtrack-frontend" >> $GITHUB_ENV
           echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build Backend Image (Local Tar for Scan)
@@ -103,7 +104,6 @@ jobs:
 
   # -------------------------------------------------------------
   # Stage 4: Publish Immutable SHA Images to GHCR
-  # (Only runs on trusted pushes to main after tests and scans pass)
   # -------------------------------------------------------------
   publish:
     name: Publish SHA-Tagged Images to GHCR
@@ -129,8 +129,9 @@ jobs:
 
       - name: Set Image Names and Tags
         run: |
-          echo "IMAGE_BACKEND=${{ env.REGISTRY }}/${{ github.repository_owner }}/labtrack-backend" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
-          echo "IMAGE_FRONTEND=${{ env.REGISTRY }}/${{ github.repository_owner }}/labtrack-frontend" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
+          OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE_BACKEND=ghcr.io/${OWNER_LC}/labtrack-backend" >> $GITHUB_ENV
+          echo "IMAGE_FRONTEND=ghcr.io/${OWNER_LC}/labtrack-frontend" >> $GITHUB_ENV
           echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build and Push Backend Image
