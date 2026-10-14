@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: labtrack-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: labtrack
+      POSTGRES_PASSWORD: labtrack123
+      POSTGRES_DB: labtrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labtrack -d labtrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: labtrack-backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql+psycopg://labtrack:labtrack123@postgres:5432/labtrack
+      ENVIRONMENT: development
+      DEBUG: "True"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             python -m scripts.seed_demo_data &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    volumes:
+      - ./scripts:/app/scripts:ro
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: labtrack-frontend
+    restart: always
+    ports:
+      - "3000:8080"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+    name: labtrack_postgres_data
