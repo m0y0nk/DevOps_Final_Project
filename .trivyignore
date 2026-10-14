@@ -1,0 +1,4 @@
+# Accept Starlette vulnerabilities that only affect StaticFiles mounting or large urlencoded form parsing,
+# neither of which is exposed by LabTrack API
+CVE-2026-48818
+CVE-2026-54283
