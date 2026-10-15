@@ -1,6 +1,7 @@
 # LabTrack — Laboratory Equipment & Inventory Management System
-> **DevOps Final Capstone Project (100/100 Rubric Implementation)**
-> **Author:** Mayank Soni | **GitHub:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)
+> **DevOps Final Capstone Project**  
+> **Author:** Mayank Soni | **GitHub:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)  
+> 📖 **Project Walkthrough & Screenshot Evidence:** [WALKTHROUGH.md](./WALKTHROUGH.md)
 
 ---
 
@@ -217,59 +218,137 @@ helm upgrade --install labtrack ./helm/labtrack -n labtrack --create-namespace
 
 ```text
 .
+├── .dockerignore                  # Docker build exclusions
+├── .env.example                   # Environment configuration template
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                 # GitHub Actions CI/CD Pipeline
+│       └── ci-cd.yml              # GitHub Actions CI/CD Pipeline
+├── .trivyignore                   # Trivy vulnerability filter rules
+├── GRADING.md                     # 100-Point Grading Rubric & Submission Requirements
+├── README.md                      # Primary Project Documentation
+├── WALKTHROUGH.md                 # Complete Step-by-Step Evidence & Screenshots Guide
 ├── backend/
+│   ├── Dockerfile                 # Multi-stage non-root Python 3.12 image
+│   ├── alembic/                   # Database migrations
+│   │   ├── env.py
+│   │   └── versions/
+│   │       └── 001_initial_schema.py
+│   ├── alembic.ini
 │   ├── app/
-│   │   ├── api/endpoints.py       # REST API Endpoints (Items, Checkouts, Stats)
-│   │   ├── core/config.py         # Application configuration & env settings
-│   │   ├── db/session.py          # SQLAlchemy engine & session factory
-│   │   ├── models/item.py         # SQLAlchemy & Pydantic models
-│   │   └── main.py                # FastAPI app & Prometheus middleware
-│   ├── migrations/                # Alembic database migrations
-│   ├── tests/
-│   │   └── test_api.py            # Pytest test suite (6 test cases)
-│   ├── Dockerfile                 # Multi-stage non-root backend image
-│   └── requirements.txt           # Python dependencies
+│   │   ├── api/
+│   │   │   └── endpoints.py       # REST API Endpoints (Items, Checkouts, Stats)
+│   │   ├── core/
+│   │   │   └── config.py          # Application configuration & env settings
+│   │   ├── db/
+│   │   │   └── session.py         # SQLAlchemy engine & session factory
+│   │   ├── models/                # Database models
+│   │   │   ├── __init__.py
+│   │   │   └── models.py
+│   │   ├── schemas/               # Pydantic schemas
+│   │   │   ├── __init__.py
+│   │   │   └── schemas.py
+│   │   ├── services/              # Business logic services
+│   │   │   └── services.py
+│   │   └── main.py                # FastAPI app & Prometheus metrics middleware
+│   ├── pytest.ini                 # Pytest test runner configuration
+│   ├── requirements.txt           # Python backend dependencies
+│   └── tests/
+│       ├── conftest.py            # SQLite test database fixtures
+│       └── test_api.py            # Automated API test suite (6 test cases)
+├── docker-compose.yml             # Local multi-container development environment
+├── docs/
+│   └── SPEC.md                    # Project requirements and domain specification
 ├── frontend/
+│   ├── Dockerfile                 # Multi-stage Node.js build -> Nginx Alpine runtime
+│   ├── index.html
+│   ├── nginx.conf                 # Nginx reverse proxy configuration
+│   ├── package-lock.json
+│   ├── package.json
 │   ├── src/
-│   │   ├── components/            # React UI components (Dashboard, Modal, etc.)
-│   │   ├── App.jsx                # Main application component
-│   │   └── index.css              # Custom styling & modern design tokens
-│   ├── nginx.conf                 # Production Nginx reverse-proxy config
-│   └── Dockerfile                 # Multi-stage non-root frontend image
+│   │   ├── App.jsx                # Main React UI component
+│   │   ├── index.css              # Custom styling & design system tokens
+│   │   └── main.jsx               # Application entrypoint
+│   └── vite.config.js             # Vite development & build configuration
 ├── helm/
-│   └── labtrack/                  # Complete Helm chart (Deployments, Services, Ingress, HPA)
+│   └── labtrack/                  # Complete Kubernetes Helm Chart
+│       ├── Chart.yaml             # Chart metadata
+│       ├── templates/
+│       │   ├── _helpers.tpl
+│       │   ├── deployment-backend.yaml
+│       │   ├── deployment-frontend.yaml
+│       │   ├── deployment-postgres.yaml
+│       │   ├── hpa.yaml           # Horizontal Pod Autoscaler
+│       │   ├── ingress.yaml       # Ingress routing rules
+│       │   ├── job-migration.yaml # Alembic DB migration post-install Hook
+│       │   ├── secret.yaml        # Database credentials secret
+│       │   └── servicemonitor.yaml# Prometheus Operator ServiceMonitor
+│       ├── values-dev.yaml        # Development values overlay
+│       └── values.yaml            # Default chart values
 ├── k8s/
-│   └── namespace.yaml             # Kubernetes namespace manifest
+│   └── namespace.yaml             # Dedicated Kubernetes namespace manifest
 ├── monitoring/
 │   └── prometheus-values.yaml     # Helm values for kube-prometheus-stack
-├── terraform/                     # Terraform HCL files for AWS VPC + EKS
-│   ├── eks.tf
-│   ├── vpc.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── terraform.tfvars.example
-├── troubleshooting/               # Scenario manifests for incident debugging
-│   ├── broken-deployment.yaml
-│   └── fixed-deployment.yaml
-├── docker-compose.yml             # Local multi-container development setup
-├── GRADING.md                     # 100-Point Grading Rubric & Submission Requirements
-└── README.md                      # Comprehensive Project Documentation
+├── screenshots/                   # Verification Evidence Screenshots (M1-M9)
+│   ├── destroy.png                # Terraform clean destroy output
+│   ├── pytest.png                 # Pytest test suite success
+│   ├── docker/                    # Docker Compose build & running evidence
+│   │   ├── 1.png
+│   │   ├── 2.png
+│   │   ├── 3.png
+│   │   └── docker-evidence.png
+│   ├── github/                    # GitHub repo and published GHCR packages
+│   │   ├── git_commit_1.png
+│   │   ├── git_commit_2.png
+│   │   └── image8.png
+│   ├── github_actions/            # GitHub Actions CI/CD & Trivy scan
+│   │   ├── failed.png
+│   │   ├── passed.png
+│   │   └── trivy_log.png
+│   ├── image17.png                # Ingress AWS LoadBalancer browser evidence
+│   ├── image18.png                # Helm install Prometheus stack
+│   ├── image19.png                # Terminal curl /metrics output
+│   ├── image20.png                # Browser /metrics output
+│   ├── image21.png                # Prometheus Targets UP health page
+│   ├── image22.png                # Grafana Explore UI on LoadBalancer
+│   ├── image23.png                # Grafana live metrics query graph
+│   ├── kubernetes_and_helm/       # Helm deployments & Ingress LoadBalancer UI
+│   │   ├── 1.png
+│   │   ├── 2.png
+│   │   └── 3.png
+│   ├── monitoring/                # Prometheus target health & Grafana live metrics
+│   │   ├── 1.png
+│   │   ├── 2.png
+│   │   ├── 3.png
+│   │   ├── 4.png
+│   │   ├── 5.png
+│   │   └── 6.png
+│   └── terraform/                 # Terraform IaC execution & AWS Console evidence
+│       ├── apply.png
+│       ├── aws_console.png
+│       ├── init_plan.png
+│       ├── nodes_evidence.png
+│       └── plan.png
+├── scripts/
+│   └── seed_demo_data.py          # Demo database seeder script
+├── terraform/                     # AWS Infrastructure as Code (Terraform)
+│   ├── .terraform.lock.hcl
+│   ├── README.md                  # Terraform instructions
+│   ├── eks.tf                     # Amazon EKS 1.30 & Worker Node Group
+│   ├── networking.tf              # AWS VPC, Subnets, Route Tables, IGW
+│   ├── outputs.tf                 # Cluster and VPC output values
+│   ├── providers.tf               # AWS provider configuration
+│   ├── terraform.tfvars.example   # Example variables template (no secrets)
+│   ├── variables.tf               # Infrastructure variables
+│   └── versions.tf                # Required provider versions
+└── troubleshooting/               # Failure recovery exercises
+    ├── broken-deployment.yaml
+    └── fixed-deployment.yaml
 ```
 
 ---
 
-## 🏆 12. Verification & Grading Checklist
+## 🏆 12. Complete Walkthrough
 
-- [x] **M1 (Application):** Full-stack LabTrack app with FastAPI, React, PostgreSQL, 4+ REST API endpoints.
-- [x] **M2 (Testing):** Pytest test suite with 6 comprehensive test cases passing 100%.
-- [x] **M3 (Docker):** Non-root user in both Dockerfiles, multi-stage build on frontend.
-- [x] **M4 (CI/CD):** GitHub Actions pipeline with test, build, scan, and push stages.
-- [x] **M5 (DevSecOps):** Trivy container vulnerability scan passing in pipeline.
-- [x] **M6 (GHCR):** Container images published to GitHub Container Registry.
-- [x] **M7 (Terraform):** Complete AWS VPC + EKS cluster provisioned and verified with IaC.
-- [x] **M8 (Kubernetes):** Helm chart deployed to EKS with 2 backend replicas, 2 frontend replicas, Ingress routing.
-- [x] **M9 (Observability):** `/metrics` endpoint, Prometheus scraping via ServiceMonitor (`UP`), Grafana live panel.
-- [x] **M10 (Documentation):** Complete README.md and project demo ready.
+For the complete, illustrated step-by-step documentation covering each of the 10 rubric milestones with embedded screenshot evidence and command explanations, please see:
+
+👉 **[WALKTHROUGH.md](./WALKTHROUGH.md)**
