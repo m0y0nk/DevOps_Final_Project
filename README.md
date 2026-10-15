@@ -289,45 +289,6 @@ helm upgrade --install labtrack ./helm/labtrack -n labtrack --create-namespace
 ├── monitoring/
 │   └── prometheus-values.yaml     # Helm values for kube-prometheus-stack
 ├── screenshots/                   # Verification Evidence Screenshots (M1-M9)
-│   ├── destroy.png                # Terraform clean destroy output
-│   ├── pytest.png                 # Pytest test suite success
-│   ├── docker/                    # Docker Compose build & running evidence
-│   │   ├── 1.png
-│   │   ├── 2.png
-│   │   ├── 3.png
-│   │   └── docker-evidence.png
-│   ├── github/                    # GitHub repo and published GHCR packages
-│   │   ├── git_commit_1.png
-│   │   ├── git_commit_2.png
-│   │   └── image8.png
-│   ├── github_actions/            # GitHub Actions CI/CD & Trivy scan
-│   │   ├── failed.png
-│   │   ├── passed.png
-│   │   └── trivy_log.png
-│   ├── image17.png                # Ingress AWS LoadBalancer browser evidence
-│   ├── image18.png                # Helm install Prometheus stack
-│   ├── image19.png                # Terminal curl /metrics output
-│   ├── image20.png                # Browser /metrics output
-│   ├── image21.png                # Prometheus Targets UP health page
-│   ├── image22.png                # Grafana Explore UI on LoadBalancer
-│   ├── image23.png                # Grafana live metrics query graph
-│   ├── kubernetes_and_helm/       # Helm deployments & Ingress LoadBalancer UI
-│   │   ├── 1.png
-│   │   ├── 2.png
-│   │   └── 3.png
-│   ├── monitoring/                # Prometheus target health & Grafana live metrics
-│   │   ├── 1.png
-│   │   ├── 2.png
-│   │   ├── 3.png
-│   │   ├── 4.png
-│   │   ├── 5.png
-│   │   └── 6.png
-│   └── terraform/                 # Terraform IaC execution & AWS Console evidence
-│       ├── apply.png
-│       ├── aws_console.png
-│       ├── init_plan.png
-│       ├── nodes_evidence.png
-│       └── plan.png
 ├── scripts/
 │   └── seed_demo_data.py          # Demo database seeder script
 ├── terraform/                     # AWS Infrastructure as Code (Terraform)

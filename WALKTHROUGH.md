@@ -132,14 +132,20 @@
 ![Terraform Apply](screenshots/terraform/apply.png)
 *Figure 7.3: \`terraform apply\` provisioning AWS VPC, Subnets, IAM roles, and EKS Cluster.*
 
-![AWS EKS Console](screenshots/terraform/aws_console.png)
-*Figure 7.4: AWS Management Console showing active \`labtrack-eks\` cluster and managed node group.*
+![AWS EKS Cluster Console](screenshots/eks.png)
+*Figure 7.4: AWS Management Console displaying the active \`labtrack-eks\` cluster in region \`ap-south-1\` (Mumbai).*
+
+![AWS VPC Console](screenshots/vpc.png)
+*Figure 7.5: AWS Management Console displaying the dedicated VPC (\`10.0.0.0/16\`), public subnets, and routing table.*
+
+![AWS EKS Managed Node Group](screenshots/terraform/aws_console.png)
+*Figure 7.6: AWS Console view of the \`labtrack-managed-nodes\` node group configuration.*
 
 ![Active Worker Nodes](screenshots/terraform/nodes_evidence.png)
-*Figure 7.5: \`kubectl get nodes\` showing worker nodes in Ready state.*
+*Figure 7.7: \`kubectl get nodes\` verifying worker nodes joined the cluster and are in \`Ready\` state.*
 
 ![Terraform Destroy Teardown](screenshots/destroy.png)
-*Figure 7.6: \`terraform destroy\` verifying complete resource teardown.*
+*Figure 7.8: \`terraform destroy\` output verifying complete infrastructure teardown to prevent cloud costs.*
 
 ---
 
