@@ -72,7 +72,7 @@ postgresql:
     username: labtrack
     password: "labtrack_secure_pass_123"
   persistence:
-    enabled: true
+    enabled: false
     size: 2Gi
   resources:
     requests:
