@@ -1,0 +1,82 @@
+# ==============================================================================
+# Prometheus Community kube-prometheus-stack values
+# Installed via: helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
+#   -n monitoring --create-namespace -f monitoring/prometheus-values.yaml
+# ==============================================================================
+
+# Disable components not needed for this demo
+alertmanager:
+  enabled: false
+
+# Prometheus configuration
+prometheus:
+  enabled: true
+  prometheusSpec:
+    scrapeInterval: 15s
+    evaluationInterval: 15s
+    # Allow scraping ServiceMonitors from all namespaces (picks up labtrack)
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    retention: 24h
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+
+# Grafana configuration
+grafana:
+  enabled: true
+  adminPassword: "labtrack-grafana-2024"
+  service:
+    type: LoadBalancer
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "default"
+          orgId: 1
+          folder: ""
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      fastapi-dashboard:
+        gnetId: 14028
+        revision: 1
+        datasource: Prometheus
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi

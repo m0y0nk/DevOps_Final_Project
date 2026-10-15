@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "labtrack.fullname" . }}-migration-{{ randAlphaNum 5 | lower }}
+  labels:
+    {{- include "labtrack.labels" . | nindent 4 }}
+    app.kubernetes.io/component: migration
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "labtrack.labels" . | nindent 8 }}
+        app.kubernetes.io/component: migration
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: alembic-upgrade
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          command: ["sh", "-c", "alembic upgrade head"]
+          envFrom:
+            - secretRef:
+                name: {{ include "labtrack.fullname" . }}-db-secret
+          env:
+            - name: ENVIRONMENT
+              value: {{ .Values.backend.env.ENVIRONMENT | quote }}
+          securityContext:
+            {{- toYaml .Values.backend.securityContext | nindent 12 }}
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi

@@ -1,0 +1,30 @@
+# ==============================================================================
+# Fixed deployment for the troubleshooting exercise
+# ==============================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labtrack-broken-backend
+  namespace: labtrack
+  labels:
+    app: labtrack-broken-backend
+    exercise: troubleshooting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labtrack-broken-backend
+  template:
+    metadata:
+      labels:
+        app: labtrack-broken-backend
+    spec:
+      containers:
+        - name: backend
+          # FIX: Corrected image tag to "latest"
+          image: ghcr.io/m0y0nk/labtrack-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "sqlite:///./test.db"

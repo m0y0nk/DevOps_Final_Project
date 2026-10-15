@@ -1,0 +1,31 @@
+# ==============================================================================
+# Broken deployment for troubleshooting exercise (intentionally misconfigured)
+# Fix: Change image tag from "nonexistent-tag" to "latest"
+# ==============================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labtrack-broken-backend
+  namespace: labtrack
+  labels:
+    app: labtrack-broken-backend
+    exercise: troubleshooting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labtrack-broken-backend
+  template:
+    metadata:
+      labels:
+        app: labtrack-broken-backend
+    spec:
+      containers:
+        - name: backend
+          # BUG: This image tag does not exist — pod will be stuck in ImagePullBackOff
+          image: ghcr.io/m0y0nk/labtrack-backend:nonexistent-tag
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "sqlite:///./test.db"

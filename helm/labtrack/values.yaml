@@ -1,0 +1,113 @@
+global:
+  environment: production
+
+# ------------------------------------------------------------------------------
+# Backend Configuration
+# ------------------------------------------------------------------------------
+backend:
+  replicaCount: 2
+  image:
+    repository: ghcr.io/m0y0nk/labtrack-backend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8000
+  env:
+    ENVIRONMENT: production
+    DEBUG: "False"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+
+# ------------------------------------------------------------------------------
+# Frontend Configuration
+# ------------------------------------------------------------------------------
+frontend:
+  replicaCount: 2
+  image:
+    repository: ghcr.io/m0y0nk/labtrack-frontend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 101
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+
+# ------------------------------------------------------------------------------
+# PostgreSQL (Internal Demo Database for Kubernetes)
+# ------------------------------------------------------------------------------
+postgresql:
+  enabled: true
+  image:
+    repository: postgres
+    tag: "16-alpine"
+  auth:
+    database: labtrack
+    username: labtrack
+    password: "labtrack_secure_pass_123"
+  persistence:
+    enabled: true
+    size: 2Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# ------------------------------------------------------------------------------
+# Ingress Routing (/ to frontend, /api to backend)
+# ------------------------------------------------------------------------------
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  hosts:
+    - host: labtrack.local
+      paths:
+        - path: /api
+          pathType: Prefix
+          service: backend
+          port: 8000
+        - path: /
+          pathType: Prefix
+          service: frontend
+          port: 8080
+
+# ------------------------------------------------------------------------------
+# Prometheus ServiceMonitor (Observability)
+# ------------------------------------------------------------------------------
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  scrapeTimeout: 10s
+  path: /metrics

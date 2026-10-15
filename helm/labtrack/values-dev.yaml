@@ -1,0 +1,39 @@
+# Lightweight development values suitable for local Minikube / Kind
+global:
+  environment: development
+
+backend:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  autoscaling:
+    enabled: false
+
+frontend:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+
+postgresql:
+  persistence:
+    enabled: false
+
+ingress:
+  hosts:
+    - host: localhost
+      paths:
+        - path: /api
+          pathType: Prefix
+          service: backend
+          port: 8000
+        - path: /
+          pathType: Prefix
+          service: frontend
+          port: 8080
+
+serviceMonitor:
+  enabled: false

@@ -1,0 +1,12 @@
+apiVersion: v2
+name: labtrack
+description: A production-ready Helm chart for LabTrack — University Lab Inventory & Equipment Tracker
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - labtrack
+  - inventory
+  - fastapi
+  - react
+  - postgresql

@@ -1,0 +1,13 @@
+# LabTrack AWS Infrastructure Parameters
+# Copy this file to terraform.tfvars and customize if needed.
+# DO NOT commit real credentials or keys to git.
+
+aws_region          = "ap-south-1"
+project_name        = "labtrack"
+environment         = "dev"
+vpc_cidr            = "10.0.0.0/16"
+kubernetes_version  = "1.30"
+node_instance_types = ["t3.medium"]
+desired_nodes       = 2
+min_nodes           = 1
+max_nodes           = 3
