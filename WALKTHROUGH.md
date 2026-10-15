@@ -20,7 +20,7 @@
 - **Database Migrations (\`backend/alembic/\`):** Initial schema migration (\`001_initial_schema.py\`) managing \`items\`, \`checkouts\`, and \`maintenance_logs\` tables.
 - **Frontend (\`frontend/\`):** Modern React 18 single-page application featuring laboratory inventory tables, KPI cards, equipment check-out/return modals, and live status filters.
 
-![LabTrack Application Running](screenshots/docker/docker-evidence.png)
+![LabTrack Application Running](screenshots/docker_images/docker-evidence.png)
 *Figure 1.1: Live LabTrack single-page web application displaying KPI cards, equipment status badges, and interactive inventory table.*
 
 ---
@@ -69,13 +69,13 @@
 
 ### Visual Evidence
 
-![Docker Compose Build Initializing](screenshots/docker/1.png)
+![Docker Compose Build Initializing](screenshots/docker_images/1.png)
 *Figure 4.1: \`docker compose up --build\` initializing container builds.*
 
-![Docker Compose Images Built](screenshots/docker/2.png)
+![Docker Compose Images Built](screenshots/docker_images/2.png)
 *Figure 4.2: Frontend and backend multi-stage images successfully built and database volume created.*
 
-![Docker Compose Running](screenshots/docker/3.png)
+![Docker Compose Running](screenshots/docker_images/3.png)
 *Figure 4.3: All containers (PostgreSQL, FastAPI Backend, React Frontend) healthy and serving requests.*
 
 ---
