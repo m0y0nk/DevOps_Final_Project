@@ -19,20 +19,14 @@ prometheus:
     serviceMonitorSelector: {}
     serviceMonitorNamespaceSelector: {}
     retention: 24h
+    emptyDir: {}
     resources:
       requests:
-        cpu: 200m
-        memory: 512Mi
+        cpu: 100m
+        memory: 256Mi
       limits:
         cpu: 500m
-        memory: 1Gi
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 5Gi
+        memory: 512Mi
 
 # Grafana configuration
 grafana:
@@ -40,34 +34,18 @@ grafana:
   adminPassword: "labtrack-grafana-2024"
   service:
     type: LoadBalancer
+  persistence:
+    enabled: false
   resources:
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 128Mi
     limits:
-      cpu: 200m
+      cpu: 250m
       memory: 256Mi
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-        - name: "default"
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/default
-  dashboards:
-    default:
-      fastapi-dashboard:
-        gnetId: 14028
-        revision: 1
-        datasource: Prometheus
 
 nodeExporter:
-  enabled: true
+  enabled: false
 
 kubeStateMetrics:
   enabled: true
@@ -75,7 +53,7 @@ kubeStateMetrics:
 prometheusOperator:
   resources:
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 128Mi
     limits:
       cpu: 200m
