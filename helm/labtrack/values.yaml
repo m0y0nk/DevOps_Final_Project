@@ -117,7 +117,7 @@ ingress:
 # Prometheus ServiceMonitor (Observability)
 # ------------------------------------------------------------------------------
 serviceMonitor:
-  enabled: true
+  enabled: false
   interval: 15s
   scrapeTimeout: 10s
   path: /metrics
