@@ -2,6 +2,7 @@
 > **DevOps Final Capstone Project**  
 > **Author:** Mayank Soni | **GitHub:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)  
 > 📖 **Project Walkthrough:** [WALKTHROUGH.md](./WALKTHROUGH.md)
+> 📖 **Project Presentation:** [Presentation.pptx](./Presentation.pptx)
 
 ---
 

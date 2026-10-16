@@ -1,5 +1,6 @@
 # LabTrack — DevOps Capstone Project Walkthrough & Evidence
 > **Repository:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)  
+> 📖 **Project Presentation:** [Presentation.pptx](./Presentation.pptx)
 > **Author:** Mayank Soni | **Target Region:** AWS \`ap-south-1\` (Mumbai)
 
 ---
@@ -52,11 +53,14 @@
 - **Git Hygiene:** Strict \`.gitignore\` prevents committing \`.env\`, \`__pycache__\`, \`node_modules\`, \`.venv\`, \`terraform.tfstate\`, and sensitive credentials.
 
 
-![GitHub Repository Overview](screenshots/github/git_commit_1.png)
-*Figure 3.1: GitHub repository homepage showing project files and repository structure.*
+![Git Commit History](screenshots/github/1.png)
+*Figure 3.1: Clean, conventional Git commit history displaying descriptive commit messages and pipeline status badges.*
 
-![Git Commit History](screenshots/github/git_commit_2.png)
+![Git Commit History](screenshots/github/2.png)
 *Figure 3.2: Clean, conventional Git commit history displaying descriptive commit messages and pipeline status badges.*
+
+![Git Commit History](screenshots/github/3.png)
+*Figure 3.3: Clean, conventional Git commit history displaying descriptive commit messages and pipeline status badges.*
 
 ---
 
