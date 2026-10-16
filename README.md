@@ -1,7 +1,7 @@
 # LabTrack — Laboratory Equipment & Inventory Management System
 > **DevOps Final Capstone Project**  
 > **Author:** Mayank Soni | **GitHub:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)  
-> 📖 **Project Walkthrough & Screenshot Evidence:** [WALKTHROUGH.md](./WALKTHROUGH.md)
+> 📖 **Project Walkthrough:** [WALKTHROUGH.md](./WALKTHROUGH.md)
 
 ---
 
