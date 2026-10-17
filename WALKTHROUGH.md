@@ -1,6 +1,6 @@
 # LabTrack — DevOps Capstone Project Walkthrough & Evidence
 > **Repository:** [m0y0nk/DevOps_Final_Project](https://github.com/m0y0nk/DevOps_Final_Project)  
-> 📖 **Project Presentation:** [Presentation.pptx](./Presentation.pptx)
+> 📖 **Project Presentation:** [Presentation.pptx](./demo/Presentation.pptx)
 > **Author:** Mayank Soni | **Target Region:** AWS \`ap-south-1\` (Mumbai)
 
 ---
